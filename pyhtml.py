@@ -1,6 +1,6 @@
 # creates html elements with attributes if any
 class HTML():
-    def __init__(self, tag, data, **attrs):
+    def __init__(self, tag, data="", **attrs):
         if attrs:
             html = f'<{tag} '
             for attr in attrs:
