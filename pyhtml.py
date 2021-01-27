@@ -27,14 +27,14 @@ class HTML():
             file.write(self.html)
 
     # Saves your code as html5 template
-    def save_as_template(self, filename, title="[ Change Title Here ]", additional_link="", css_filename="style.css"):
+    def save_as_template(self, filename, title="[ Change Title Here ]", additional_link="", css_filename=""):
         template = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {additional_link}
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="{css_filename}" />
     <title>{title}</title>
 </head>
 <body>
@@ -47,8 +47,10 @@ class HTML():
 
 
 # Only returns html code, same as html_bundler but returns html code instead of creating .html file
-def html(*data, title="[ Change Title Here ]", css_link="", additional_link=""):
-    template = f"""<!DOCTYPE html>
+def html(*data, title="[ Change Title Here ]", css_link="", additional_link="", boilerplate=True):
+    template = ""
+    if boilerplate:
+        template = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -61,17 +63,23 @@ def html(*data, title="[ Change Title Here ]", css_link="", additional_link=""):
 </head>
 <body>
 """
-    for tag in data:
-        template += str(tag) + "\n"
+        for tag in data:
+            template += str(tag) + "\n"
 
-    template += """</body>
-</html>"""
+        template += """</body>
+    </html>"""
 
-    return template
+        return template
+
+    else:
+        for tag in data:
+            template += str(tag) + "\n"
+
+        return template
 
 
 # Bundles all HTML elements into one .html file
-def html_bundler(*data, title="[ Change Title Here ]", css_filename="style.css", filename, additional_link=""):
+def html_bundler(*data, title="[ Change Title Here ]", css_filename="", filename, additional_link=""):
     template = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
