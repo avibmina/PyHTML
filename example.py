@@ -14,6 +14,4 @@ form = Render(
     title="Todo"
 )
 
-print(form, type(form))
-print(group, type(group))
-print(form.html(), type(form.html()))
+print(form.html()) # returns html code as string
