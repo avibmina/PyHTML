@@ -46,40 +46,8 @@ class HTML():
             file.write(template)
 
 
-# Only returns html code, same as html_bundler but returns html code instead of creating .html file
-def html(*data, title="[ Change Title Here ]", css_link="", additional_link="", boilerplate=True):
-    template = ""
-    if boilerplate:
-        template = f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {additional_link}
-    <style>
-    {css_link}
-    </style>
-    <title>{title}</title>
-</head>
-<body>
-"""
-        for tag in data:
-            template += str(tag) + "\n"
-
-        template += """</body>
-    </html>"""
-
-        return template
-
-    else:
-        for tag in data:
-            template += str(tag) + "\n"
-
-        return template
-
-
 # Bundles all HTML elements into one .html file
-def html_bundler(*data, title="[ Change Title Here ]", css_filename="", filename, additional_link=""):
+def Html_bundler(*data, title="[ Change Title Here ]", css_filename="", filename, additional_link=""):
     template = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,3 +67,42 @@ def html_bundler(*data, title="[ Change Title Here ]", css_filename="", filename
 
     with open(filename, 'w') as file:
         file.write(template)
+
+
+# Only returns html code, same as html_bundler but returns html code instead of creating .html file
+class Render():
+    def __init__(self, *data, title="[ Change Title Here ]", css_link="", additional_link=""):
+        template = f"""<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {additional_link}
+        <style>{css_link}</style>
+        <title>{title}</title>
+    </head>
+    <body>
+    
+"""
+        for tag in data:
+            template += "\t" + str(tag) + "\n\t"
+
+        template += """
+    </body>
+</html>"""
+
+        self.template = template
+        self.data = data
+
+    def __str__(self):
+        return self.template
+        
+    def html(self):
+        return self.template
+
+    def as_element(self):
+        self.template = ""
+        for tag in self.data:
+            self.template += "\n\t" + str(tag)
+
+        return self.template

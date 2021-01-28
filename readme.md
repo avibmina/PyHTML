@@ -145,14 +145,14 @@ code in home.html:
 #### Example 6: creating html elements, combining them and saving them into one .html file
 
 ```python
-from pyhtml import HTML, html_bundler
+from pyhtml import HTML, Html_bundler
 
 h1 = HTML("h1", "Welcome To The Home Page!",Class="heading")
 h3 = HTML("h3", "Hello World")
 p = HTML("p", "This is a paragraph", id="para")
 
-# html_bundler() takes data, filename, title, css_filename,additional_link(css or bootstrap cdn) as arguments
-html_bundler(
+# Html_bundler() takes data, filename, title, css_filename,additional_link(css or bootstrap cdn) as arguments
+Html_bundler(
     h1,
     h3,
     p,
@@ -184,9 +184,9 @@ code in home.html:
 #### Alternatively you can do the same as above with the below code:
 
 ```python
-from pyhtml import HTML, html_bundler
+from pyhtml import HTML, Html_bundler
 
-html_bundler(
+Html_bundler(
     HTML("h1", "Welcome To The Home Page!",Class="heading"),
     HTML("h3", "Hello World"),
     HTML("p", "This is a paragraph", id="para"),
@@ -217,20 +217,24 @@ code in home.html and notice that css filename defaulted to "style.css" you can 
 
 ---
 
-#### Example 7: using html() which only returns html code
+#### Example 7: class Render() which only returns html code without saving or creating html file
 
 ```python
-from pyhtml import HTML, html
+from pyhtml import HTML, Render
 
-# html() arguments are: data, title, css_link, additonal_link
-home = html(
+# arguments are: data, title, css_link, additonal_link
+# Render -> defaultly returns code with html5 boilerplate
+home = Render(
     HTML("h1", "Welcome To The Home Page!",Class="heading"),
     HTML("h3", "Hello World"),
     HTML("p", "This is a paragraph", id="para"),
     title="Hello World"
-)
+).html()
 
-print(home)
+print(home) # outputs html with boilerplate
+
+# we can print without the boilerplate too, like given below
+print(home.as_element()) # outputs html without boiler plate
 
 # below code will work same as above
 """
@@ -238,12 +242,12 @@ h1 = HTML("h1", "Welcome To The Home Page!",Class="heading")
 h3 = HTML("h3", "Hello World")
 p = HTML("p", "This is a paragraph", id="para")
 
-home = html(
+home = Render(
     h1,
     h3,
     p,
     title="Hello World"
-)
+).html()
 
 print(home)
 """
